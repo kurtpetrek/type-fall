@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import data from './../data/data.js';
+import React, { Component } from "react";
+import data from "./../data/data.js";
 
 export default class GameView extends Component {
   constructor(props) {
     super(props);
-    let options = props.textOptions.map( (val) => {
+    let options = props.textOptions.map(val => {
       if (data[val]) {
         return data[val];
       } else {
@@ -13,20 +13,19 @@ export default class GameView extends Component {
     });
     options = [].concat.apply([], options);
     this.gameTime = 0;
-    this.intSpeed = 100;
-    this.spawnRate = 2000;
+    this.intSpeed = 50;
+    this.spawnRate = this.intSpeed * 20;
     this.state = {
       selectedCategories: props.textOptions,
       options: options,
       optionsPlaying: [],
-      speed: .9
+      speed: 1.3
     };
-
   }
 
   randomIntInRange = (min, max) => {
-     return Math.floor(Math.random() * (max - min)) + min;
-  }
+    return Math.floor(Math.random() * (max - min)) + min;
+  };
 
   componentDidMount() {
     this.interval = setInterval(this.gameInterval, this.intSpeed);
@@ -42,30 +41,40 @@ export default class GameView extends Component {
         active: true,
         remove: false
       };
-      this.setState((prevState) => {
+      this.setState(prevState => {
         prevState.optionsPlaying.push(item);
         prevState.options.splice(index, 1);
         return prevState;
       });
     }
-  }
+  };
 
   updatePositions = () => {
-    this.setState((prevState) => {
-        prevState.optionsPlaying = prevState.optionsPlaying.map((val) => {
-          if (val.active) {
-            val.yPosition += prevState.speed;
-          }
-          if (val.yPosition > 90) {
-            val.active = false;
-          }
-          if (val.remove) {
-            return null;
-          } else {
-            return val;
-          }
-        });
-        return prevState;
+    this.setState(prevState => {
+      let options = [];
+      prevState.optionsPlaying.forEach(function(val) {
+        if (val.active) {
+          val.yPosition += prevState.speed;
+        }
+        if (val.yPosition > 90 && val.active) {
+          val.active = false;
+          val.deathTimer = 0;
+        }
+        if (!val.active) {
+          val.deathTimer++;
+          console.log(val.deathTimer);
+        }
+        if (val.deathTimer > 20) {
+          val.remove = true;
+        }
+        if (val.remove) {
+          prevState.options.push(val.character);
+        } else {
+          options.push(val);
+        }
+      });
+      prevState.optionsPlaying = options;
+      return prevState;
     });
   };
 
@@ -76,27 +85,29 @@ export default class GameView extends Component {
 
     this.updatePositions();
     this.gameTime += this.intSpeed;
-  }
+  };
 
   render() {
-    let targets = this.state.optionsPlaying.map((val)=>{
-      const style = {
-        position: 'absolute',
+    let targets = this.state.optionsPlaying.map(val => {
+      let style = {
+        position: "absolute",
         left: `${val.xPosition}vw`,
         top: 0,
         transform: `translate(-50%,${val.yPosition}vh)`,
         transition: `${this.state.speed * this.intSpeed}ms`
       };
-      console.log(val.xAxis);
+      if (!val.active) {
+        style.transform = `translate(-50%,${val.yPosition}vh) scale(2) rotate(360deg)`;
+        style.opacity = 0;
+        style.transition = "500ms";
+      }
       return (
-        <h3 style={style}>{val.character}</h3>
-      )
+        <h3 style={style} key={val.character}>
+          {val.character}
+        </h3>
+      );
     });
 
-    return (
-      <div>
-        {targets}
-      </div>
-    )
+    return <div>{targets}</div>;
   }
 }
