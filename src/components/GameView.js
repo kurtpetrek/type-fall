@@ -39,8 +39,9 @@ export default class GameView extends Component {
       let item = {
         character: this.state.options[index],
         xPosition: this.randomIntInRange(5, 95),
-        yPosition: -5,
+        yPosition: -20,
         active: true,
+        hitHealth: false,
         remove: false
       };
       this.setState(prevState => {
@@ -58,9 +59,10 @@ export default class GameView extends Component {
         if (val.active) {
           val.yPosition += prevState.speed;
         }
-        if (val.yPosition > 90 && val.active) {
+        if (val.yPosition > 80 && val.active) {
           val.active = false;
           val.deathTimer = 0;
+          val.hitHealth = true;
         }
         if (!val.active) {
           val.deathTimer++;
@@ -117,6 +119,9 @@ export default class GameView extends Component {
         style.transform = `translate(-50%,${val.yPosition}vh) scale(2) rotate(360deg)`;
         style.opacity = 0;
         style.transition = "500ms";
+      }
+      if (val.hitHealth) {
+        style.color = 'red';
       }
       return (
         <h3 style={style} key={val.character}>
