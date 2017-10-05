@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import StartView from "./components/StartView";
+import GameView from "./components/GameView";
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +32,11 @@ class App extends Component {
     }
 
     if (this.state.currentView === "GameView") {
-      return null;
+      return (
+        <GameView
+          textOptions={this.state.selectedTextOptions}
+        />
+      );
     }
 
   }
