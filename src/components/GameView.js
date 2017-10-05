@@ -62,7 +62,6 @@ export default class GameView extends Component {
         }
         if (!val.active) {
           val.deathTimer++;
-          console.log(val.deathTimer);
         }
         if (val.deathTimer > 20) {
           val.remove = true;
@@ -82,10 +81,16 @@ export default class GameView extends Component {
     if (this.gameTime % this.spawnRate === 0) {
       this.addNewItem();
     }
-
+    document.querySelector('input').focus();
     this.updatePositions();
     this.gameTime += this.intSpeed;
   };
+
+  handleUserKeyInput = (e) => {
+    let val = e.target.value.toLowerCase();
+    console.log(val);
+    e.target.value = '';
+  }
 
   render() {
     let targets = this.state.optionsPlaying.map(val => {
@@ -108,6 +113,15 @@ export default class GameView extends Component {
       );
     });
 
-    return <div>{targets}</div>;
+    return (
+      <div>
+        <input
+          type="text"
+          autoFocus
+          onChange={this.handleUserKeyInput}
+          style={{opacity: 0}}
+        />
+        {targets}
+      </div>);
   }
 }
