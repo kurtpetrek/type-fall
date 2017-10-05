@@ -19,7 +19,9 @@ export default class GameView extends Component {
       selectedCategories: props.textOptions,
       options: options,
       optionsPlaying: [],
-      speed: 1.3
+      speed: 1.3,
+      score: 0,
+      health: 5
     };
   }
 
@@ -88,7 +90,16 @@ export default class GameView extends Component {
 
   handleUserKeyInput = (e) => {
     let val = e.target.value.toLowerCase();
-    console.log(val);
+
+    this.state.optionsPlaying.forEach((el, index, arr) => {
+      if (val === el.character && el.active) {
+        this.setState((prevState) => {
+          prevState.optionsPlaying[index].active = false;
+          prevState.optionsPlaying[index].deathTimer = 0;
+          return prevState;
+        });
+      }
+    });
     e.target.value = '';
   }
 
@@ -98,6 +109,7 @@ export default class GameView extends Component {
         position: "absolute",
         left: `${val.xPosition}vw`,
         top: 0,
+        fontSize: '2rem',
         transform: `translate(-50%,${val.yPosition}vh)`,
         transition: `${this.state.speed * this.intSpeed}ms`
       };
