@@ -1,7 +1,67 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 
 import StyledCheckbox from "./StyledCheckbox";
 import Button from "./Button";
+import AnimatedHeader from './AnimatedHeader';
+
+const ViewContainer = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  background: #AAB5C5;
+`;
+
+const InnerContainer = styled.div`
+  max-width: 750px;
+  border: 5px double #C6C6CB;
+  padding: 1rem;
+  position: relative;
+  background: white;
+  margin: 1rem;
+
+  &::after{
+    content: '';
+    position: absolute;
+    height: 40%;
+    background: #888;
+    width: 100%;
+    bottom: 0;
+    left: 1.3rem;
+    z-index: -1;
+    transform: skewX(-20deg);
+  }
+
+  h1 {
+    font-family: 'Bungee Shade', cursive;
+    text-align: center;
+    font-size: 4rem;
+  }
+`;
+
+const OptionsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  @media(max-width: 750px) {
+    & {
+      display: block;
+    }
+  }
+`;
+
+const OptionsList = styled.div`
+  width: 30%;
+  margin: 1rem;
+  @media(max-width: 750px) {
+    & {
+      border-top: 2px solid #888;
+      width: 100%;
+    }
+  }
+`;
 
 export default class StartView extends Component {
   constructor(props) {
@@ -107,36 +167,39 @@ export default class StartView extends Component {
     const disabled = this.state.selectedTextOptions.length >= 1 ? false : true;
 
     return (
-      <div>
-        <h1>Type Fall</h1>
-        <p>Select the types of characters you would like to practice.</p>
-        <div style={{display: 'flex'}}>
-          <div>
-              {textOptions}
+      <ViewContainer>
+        <InnerContainer>
+          <AnimatedHeader>Type Fall</AnimatedHeader>
+          <p>Select the types of characters you would like to practice, the rate and whether you are penalized for mistakes.</p>
+          <OptionsContainer>
+            <OptionsList>
+                {textOptions}
+            </OptionsList>
+            <OptionsList>
+                {speedOptions}
+            </OptionsList>
+            <OptionsList>
+              <StyledCheckbox
+                value={'hardcore'}
+                checked={this.state.hardcore}
+                handleInput={() => {
+                  this.handleHardcore();
+                }}
+              >
+                Hardcore
+              </StyledCheckbox>
+            </OptionsList>
+          </OptionsContainer>
+          <div style={{textAlign: 'right'}}>
+            <Button
+              handleClick={this.onStartGame}
+              disabled={disabled}
+              >
+                Start Game
+            </Button>
           </div>
-          <div>
-              {speedOptions}
-          </div>
-          <div>
-            <StyledCheckbox
-              value={'hardcore'}
-              checked={this.state.hardcore}
-              handleInput={() => {
-                this.handleHardcore();
-              }}
-            >
-              Hardcore
-            </StyledCheckbox>
-          </div>
-        </div>
-
-        <Button
-          handleClick={this.onStartGame}
-          disabled={disabled}
-          >
-            Start Game
-        </Button>
-      </div>
+        </InnerContainer>
+      </ViewContainer>
     );
   }
 }
