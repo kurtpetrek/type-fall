@@ -72,7 +72,7 @@ class App extends Component {
       return (
         <GameOverView
           score={this.state.score}
-          highScore={this.state.score}
+          highScore={this.state.highScore}
           selectedTextOptions={this.state.selectedTextOptions}
           spawnRate={this.state.spawnRate}
           onGameRestart={this.handleGameRestart}

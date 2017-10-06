@@ -9,11 +9,6 @@ const InnerContainer = styled.div`
   background: white;
   margin: 1rem;
   
-  h1 {
-    font-family: 'Bungee Shade', cursive;
-    text-align: center;
-    font-size: 4rem;
-  }
 `;
 
 export default InnerContainer;

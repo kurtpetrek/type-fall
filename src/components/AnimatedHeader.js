@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 const AnimatedHeader = styled.h1`
   animation: header-animation 2s infinite linear;
+  font-family: 'Bungee Shade', cursive;
+  text-align: center;
+  font-size: 4rem;
 
   @keyframes header-animation {
     0% {
