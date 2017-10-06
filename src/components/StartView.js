@@ -104,14 +104,14 @@ export default class StartView extends Component {
             this.updateOptions(val);
           }}
         >
-          {val}
+          {val.charAt(0).toUpperCase() + val.slice(1)}
         </StyledCheckbox>
       );
     });
 
-    const speedOptions = ['Really Fast', 'Fast', 'Medium', 'Slow'].map((el, i)=>{
+    const speedOptions = ['Faster', 'Fast', 'Normal', 'Slow', 'Slower'].map((el, i)=>{
       let checked = false;
-      let value = 15 + (i * 5)
+      let value = 10 + (i * 5)
       if (spawnRate ===  value){
         checked = true;
       }
