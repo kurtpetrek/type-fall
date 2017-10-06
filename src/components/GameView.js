@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import data from "./../data/data.js";
 
+import HealthBar from './HealthBar';
+
 export default class GameView extends Component {
   constructor(props) {
     super(props);
@@ -14,14 +16,14 @@ export default class GameView extends Component {
     options = [].concat.apply([], options);
     this.gameTime = 0;
     this.intSpeed = 50;
-    this.spawnRate = this.intSpeed * 20;
+    this.spawnRate = this.intSpeed * 30;
     this.state = {
       selectedCategories: props.textOptions,
       options: options,
       optionsPlaying: [],
-      speed: 1.3,
+      speed: .5,
       score: 0,
-      health: 5
+      health: 100
     };
   }
 
@@ -57,12 +59,13 @@ export default class GameView extends Component {
       let options = [];
       prevState.optionsPlaying.forEach(function(val) {
         if (val.active) {
-          val.yPosition += prevState.speed;
+          val.yPosition = Math.round(val.yPosition + prevState.speed);
         }
         if (val.yPosition > 80 && val.active) {
           val.active = false;
           val.deathTimer = 0;
           val.hitHealth = true;
+          prevState.health -= 10;
         }
         if (!val.active) {
           val.deathTimer++;
@@ -98,6 +101,7 @@ export default class GameView extends Component {
         this.setState((prevState) => {
           prevState.optionsPlaying[index].active = false;
           prevState.optionsPlaying[index].deathTimer = 0;
+          prevState.score++;
           return prevState;
         });
       }
@@ -106,6 +110,10 @@ export default class GameView extends Component {
   }
 
   render() {
+    if (this.state.health <= 0) {
+      clearInterval(this.interval);
+    }
+
     let targets = this.state.optionsPlaying.map(val => {
       const style = {
         position: "absolute",
@@ -115,7 +123,7 @@ export default class GameView extends Component {
         border: '2px solid black',
         padding: '.5rem',
         transform: `translate(-50%,${val.yPosition}vh)`,
-        transition: `${this.state.speed * this.intSpeed}ms`
+        transition: `${this.intSpeed}ms`
       };
       if (!val.active) {
         style.transform = `translate(-50%,${val.yPosition}vh) scale(2) rotate(360deg)`;
@@ -134,6 +142,7 @@ export default class GameView extends Component {
 
     return (
       <div>
+        <h1>Score: {this.state.score}</h1>
         <input
           type="text"
           autoFocus
@@ -141,6 +150,7 @@ export default class GameView extends Component {
           style={{opacity: 0}}
         />
         {targets}
+        <HealthBar width={this.state.health}/>
       </div>);
   }
 }
