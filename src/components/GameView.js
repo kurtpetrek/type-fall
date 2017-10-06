@@ -107,11 +107,13 @@ export default class GameView extends Component {
 
   render() {
     let targets = this.state.optionsPlaying.map(val => {
-      let style = {
+      const style = {
         position: "absolute",
         left: `${val.xPosition}vw`,
         top: 0,
         fontSize: '2rem',
+        border: '2px solid black',
+        padding: '.5rem',
         transform: `translate(-50%,${val.yPosition}vh)`,
         transition: `${this.state.speed * this.intSpeed}ms`
       };
