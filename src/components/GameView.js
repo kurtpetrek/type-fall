@@ -22,7 +22,7 @@ export default class GameView extends Component {
       selectedCategories: props.textOptions,
       options: options,
       optionsPlaying: [],
-      speed: .5,
+      speed: .9,
       score: 0,
       health: 100
     };
@@ -60,7 +60,7 @@ export default class GameView extends Component {
       let options = [];
       prevState.optionsPlaying.forEach(function(val) {
         if (val.active) {
-          val.yPosition = Math.round(val.yPosition + prevState.speed);
+          val.yPosition += prevState.speed;
         }
         if (val.yPosition > 80 && val.active) {
           val.active = false;
@@ -121,7 +121,7 @@ export default class GameView extends Component {
     let targets = this.state.optionsPlaying.map(val => {
       const style = {
         position: "absolute",
-        left: `${val.xPosition}vw`,
+        left: `${Math.round(val.xPosition)}vw`,
         top: 0,
         fontSize: '2rem',
         border: '2px solid black',
@@ -135,7 +135,7 @@ export default class GameView extends Component {
         style.transition = "500ms";
       }
       if (val.hitHealth) {
-        style.color = 'red';
+        style.color = '#F30A13';
       }
       return (
         <h3 style={style} key={val.character}>

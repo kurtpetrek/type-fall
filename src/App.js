@@ -35,6 +35,13 @@ class App extends Component {
     });
   }
 
+  handleGameRestart = () => {
+    this.setState(prevState => {
+      prevState.currentView = "StartView";
+      return prevState;
+    });
+  }
+
   render() {
     if (this.state.currentView === "StartView") {
       return (
@@ -52,7 +59,11 @@ class App extends Component {
       );
     } else if (this.state.currentView === "GameOverView") {
       return (
-        <GameOverView></GameOverView>
+        <GameOverView
+          score={this.state.score}
+          highScore={this.state.score}
+          onGameRestart={this.handleGameRestart}
+        />
       );
     } else {
       return (
