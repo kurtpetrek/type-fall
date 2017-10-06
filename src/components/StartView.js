@@ -9,7 +9,8 @@ export default class StartView extends Component {
     this.state = {
       textOptions: props.textOptions,
       selectedTextOptions: props.selectedTextOptions,
-      spawnRate: props.spawnRate
+      spawnRate: props.spawnRate,
+      hardcore: props.hardcore
     };
     this.handleGameStart = props.onGameStart;
   }
@@ -34,14 +35,25 @@ export default class StartView extends Component {
     const rate = value;
     this.setState(prevState => {
       prevState.spawnRate = rate;
-      console.log(rate);
+      return prevState;
+    });
+  }
+
+  handleHardcore = () => {
+    this.setState(prevState => {
+      prevState.hardcore = !prevState.hardcore;
       return prevState;
     });
   }
 
   onStartGame = () => {
+    const {
+      selectedTextOptions,
+      spawnRate,
+      hardcore
+    } = this.state;
     if (this.state.selectedTextOptions.length >= 1) {
-      this.handleGameStart(this.state.selectedTextOptions, this.state.spawnRate);
+      this.handleGameStart(selectedTextOptions, spawnRate, hardcore);
     }
   };
 
@@ -75,7 +87,7 @@ export default class StartView extends Component {
     const speedOptions = ['Really Fast', 'Fast', 'Medium', 'Slow'].map((el, i)=>{
       let checked = false;
       let value = 15 + (i * 5)
-      if (this.state.spawnRate ===  value){
+      if (spawnRate ===  value){
         checked = true;
       }
       return (
@@ -104,6 +116,17 @@ export default class StartView extends Component {
           </div>
           <div>
               {speedOptions}
+          </div>
+          <div>
+            <StyledCheckbox
+              value={'hardcore'}
+              checked={this.state.hardcore}
+              handleInput={() => {
+                this.handleHardcore();
+              }}
+            >
+              Hardcore
+            </StyledCheckbox>
           </div>
         </div>
 

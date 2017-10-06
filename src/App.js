@@ -12,18 +12,20 @@ class App extends Component {
       selectedTextOptions: ['letters'],
       textOptions: ["letters", "numbers", "symbols"],
       spawnRate: 20,
+      hardcore: false,
       score: 0,
       highScore: 0
     };
   }
 
-  handleGameStart = (textOptions, spawnRate) => {
+  handleGameStart = (textOptions, spawnRate, hardcore) => {
     const rate = spawnRate;
 
     this.setState(prevState => {
       prevState.selectedTextOptions = textOptions;
       prevState.currentView = "GameView";
       prevState.spawnRate = rate;
+      prevState.hardcore = hardcore;
       return prevState;
     });
   }
@@ -54,6 +56,7 @@ class App extends Component {
           selectedTextOptions={this.state.selectedTextOptions}
           spawnRate={this.state.spawnRate}
           onGameStart={this.handleGameStart}
+          hardcore={this.state.hardcore}
         />
       );
     } else if (this.state.currentView === "GameView") {
@@ -62,6 +65,7 @@ class App extends Component {
           textOptions={this.state.selectedTextOptions}
           spawnRate={this.state.spawnRate}
           onGameOver={this.handleGameOver}
+          hardcore={this.state.hardcore}
         />
       );
     } else if (this.state.currentView === "GameOverView") {
@@ -72,7 +76,7 @@ class App extends Component {
           selectedTextOptions={this.state.selectedTextOptions}
           spawnRate={this.state.spawnRate}
           onGameRestart={this.handleGameRestart}
-
+          hardcore={this.state.hardcore}
         />
       );
     } else {

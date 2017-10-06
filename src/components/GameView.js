@@ -16,9 +16,9 @@ export default class GameView extends Component {
     options = [].concat.apply([], options);
     this.gameTime = 0;
     this.intSpeed = 50;
-    // this.spawnRate = this.intSpeed * 15;
     this.spawnRate = this.intSpeed * props.spawnRate;
     this.onGameOver = props.onGameOver;
+    this.hardcore = props.hardcore;  
     this.state = {
       selectedCategories: props.textOptions,
       options: options,
@@ -104,9 +104,10 @@ export default class GameView extends Component {
 
   handleUserKeyInput = (e) => {
     let val = e.target.value.toLowerCase();
-
+    let found = false;
     this.state.optionsPlaying.forEach((el, index, arr) => {
       if (val === el.character && el.active) {
+        found = true;
         this.setState((prevState) => {
           prevState.optionsPlaying[index].active = false;
           prevState.optionsPlaying[index].deathTimer = 0;
@@ -115,6 +116,12 @@ export default class GameView extends Component {
         });
       }
     });
+    if (!found && this.hardcore) {
+      this.setState(prevState => {
+        prevState.health -= 10;
+        return prevState;
+      });
+    }
     e.target.value = '';
   }
 
