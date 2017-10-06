@@ -29,19 +29,22 @@ export default class StartView extends Component {
   };
 
   onStartGame = () => {
-    this.handleGameStart(this.state.selectedTextOptions);
+    if (this.state.selectedTextOptions.length >= 1) {
+      this.handleGameStart(this.state.selectedTextOptions);
+    }
   };
 
   render() {
-    let { textOptions, selectedTextOptions } = this.state;
+    let {
+      textOptions,
+      selectedTextOptions
+    } = this.state;
 
     textOptions = textOptions.map(val => {
       let checked = false;
-
       if (selectedTextOptions.includes(val)) {
         checked = true;
       }
-
       return (
         <StyledCheckbox
           key={val}
@@ -56,12 +59,19 @@ export default class StartView extends Component {
       );
     });
 
+    const disabled = this.state.selectedTextOptions.length >= 1 ? false : true;
+
     return (
       <div>
         <h1>Type Fall</h1>
         <p>Select the types of characters you would like to practice.</p>
         {textOptions}
-        <Button handleClick={this.onStartGame}>Start Game</Button>
+        <Button
+          handleClick={this.onStartGame}
+          disabled={disabled}
+          >
+            Start Game
+        </Button>
       </div>
     );
   }
