@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const AnimatedHeader = styled.h1`
-  animation: header-animation 5s infinite linear;
+  animation: header-animation 2s infinite linear;
 
   @keyframes header-animation {
     0% {
@@ -135,6 +135,52 @@ const AnimatedHeader = styled.h1`
       -8px 8px #fff,
       -9px 9px #fff,
       -10px 10px #fff;
+    }
+  }
+
+  @keyframes header-animation-2 {
+    0% {
+      text-shadow: -1px 1px #fff,
+      -2px 2px #fff,
+      -3px 3px #fff,
+      -4px 4px #fff,
+      -5px 5px #fff;
+    }
+    20% {
+      text-shadow: -1px 1px #ddd,
+      -2px 2px #fff,
+      -3px 3px #fff,
+      -4px 4px #fff,
+      -5px 5px #fff;
+    }
+    40% {
+      text-shadow: -1px 1px #ddd,
+      -2px 2px #ddd,
+      -3px 3px #fff,
+      -4px 4px #fff,
+      -5px 5px #fff;
+    }
+    60% {
+      text-shadow: -1px 1px #ddd,
+      -2px 2px #ddd,
+      -3px 3px #ddd,
+      -4px 4px #fff,
+      -5px 5px #fff;
+    }
+    80% {
+      text-shadow: -1px 1px #ddd,
+      -2px 2px #ddd,
+      -3px 3px #ddd,
+      -4px 4px #ddd,
+      -5px 5px #fff;
+    }
+    100% {
+      text-shadow: -1px 1px #ddd,
+      -2px 2px #ddd,
+      -3px 3px #ddd,
+      -4px 4px #ddd,
+      -5px 5px #ddd,
+      -6px 6px #fff;
     }
   }
 `;
