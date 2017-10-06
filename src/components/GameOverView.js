@@ -50,6 +50,8 @@ export default function GameOverView(props) {
       break;
   }
 
+  const hardcoreText = props.hardcore ? 'Hardcore' : '';
+
   return (
     <ViewContainer>
       <InnerContainer>
@@ -59,6 +61,7 @@ export default function GameOverView(props) {
           <h2>{highScoretext}</h2>
           <h3>Score: {props.score}</h3>
           <h3>Highscore: {props.highScore}</h3>
+          <h3>{hardcoreText}</h3>
           <h3>Characters: {options}</h3>
           <h3>Speed: {spawnSpeedText}</h3>
           <div style={{textAlign: 'right'}}>
