@@ -16,7 +16,8 @@ export default class GameView extends Component {
     options = [].concat.apply([], options);
     this.gameTime = 0;
     this.intSpeed = 50;
-    this.spawnRate = this.intSpeed * 30;
+    this.spawnRate = this.intSpeed * 15;
+    this.onGameOver = props.onGameOver;
     this.state = {
       selectedCategories: props.textOptions,
       options: options,
@@ -85,12 +86,19 @@ export default class GameView extends Component {
   };
 
   gameInterval = () => {
-    if (this.gameTime % this.spawnRate === 0) {
-      this.addNewItem();
+    if (this.state.health <= 0) {
+      clearInterval(this.interval);
+      this.onGameOver(this.state.score);
+    } else {
+      if (this.gameTime % this.spawnRate === 0) {
+        this.addNewItem();
+      }
+      if (document.querySelector('input')) {
+        document.querySelector('input').focus();
+      }
+      this.updatePositions();
+      this.gameTime += this.intSpeed;
     }
-    document.querySelector('input').focus();
-    this.updatePositions();
-    this.gameTime += this.intSpeed;
   };
 
   handleUserKeyInput = (e) => {
@@ -110,10 +118,6 @@ export default class GameView extends Component {
   }
 
   render() {
-    if (this.state.health <= 0) {
-      clearInterval(this.interval);
-    }
-
     let targets = this.state.optionsPlaying.map(val => {
       const style = {
         position: "absolute",
