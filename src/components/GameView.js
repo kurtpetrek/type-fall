@@ -18,7 +18,7 @@ export default class GameView extends Component {
     this.intSpeed = 50;
     this.spawnRate = this.intSpeed * props.spawnRate;
     this.onGameOver = props.onGameOver;
-    this.hardcore = props.hardcore;  
+    this.hardcore = props.hardcore;
     this.state = {
       selectedCategories: props.textOptions,
       options: options,
@@ -153,7 +153,7 @@ export default class GameView extends Component {
     });
 
     return (
-      <div>
+      <div style={{padding: '0 1rem', height: '100vh', overflow: 'hidden', position: 'relative'}}>
         <h1>Score: {this.state.score}</h1>
         <input
           type="text"
