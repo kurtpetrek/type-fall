@@ -8,7 +8,8 @@ export default class StartView extends Component {
     super(props);
     this.state = {
       textOptions: props.textOptions,
-      selectedTextOptions: []
+      selectedTextOptions: props.selectedTextOptions,
+      spawnRate: props.spawnRate
     };
     this.handleGameStart = props.onGameStart;
   }
@@ -28,16 +29,27 @@ export default class StartView extends Component {
     }
   };
 
+  handleSpeedUpdate = (value) => {
+    // const rate = e.target.value
+    const rate = value;
+    this.setState(prevState => {
+      prevState.spawnRate = rate;
+      console.log(rate);
+      return prevState;
+    });
+  }
+
   onStartGame = () => {
     if (this.state.selectedTextOptions.length >= 1) {
-      this.handleGameStart(this.state.selectedTextOptions);
+      this.handleGameStart(this.state.selectedTextOptions, this.state.spawnRate);
     }
   };
 
   render() {
     let {
       textOptions,
-      selectedTextOptions
+      selectedTextOptions,
+      spawnRate
     } = this.state;
 
     textOptions = textOptions.map(val => {
@@ -50,11 +62,32 @@ export default class StartView extends Component {
           key={val}
           value={val}
           checked={checked}
+          tabindex="0"
           handleInput={() => {
             this.updateOptions(val);
           }}
         >
           {val}
+        </StyledCheckbox>
+      );
+    });
+
+    const speedOptions = ['Really Fast', 'Fast', 'Medium', 'Slow'].map((el, i)=>{
+      let checked = false;
+      let value = 15 + (i * 5)
+      if (this.state.spawnRate ===  value){
+        checked = true;
+      }
+      return (
+        <StyledCheckbox
+          key={value}
+          value={value}
+          checked={checked}
+          handleInput={() => {
+            this.handleSpeedUpdate(value);
+          }}
+        >
+          {el}
         </StyledCheckbox>
       );
     });
@@ -65,7 +98,15 @@ export default class StartView extends Component {
       <div>
         <h1>Type Fall</h1>
         <p>Select the types of characters you would like to practice.</p>
-        {textOptions}
+        <div style={{display: 'flex'}}>
+          <div>
+              {textOptions}
+          </div>
+          <div>
+              {speedOptions}
+          </div>
+        </div>
+
         <Button
           handleClick={this.onStartGame}
           disabled={disabled}

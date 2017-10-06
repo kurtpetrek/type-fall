@@ -16,7 +16,8 @@ export default class GameView extends Component {
     options = [].concat.apply([], options);
     this.gameTime = 0;
     this.intSpeed = 50;
-    this.spawnRate = this.intSpeed * 20;
+    // this.spawnRate = this.intSpeed * 15;
+    this.spawnRate = this.intSpeed * props.spawnRate;
     this.onGameOver = props.onGameOver;
     this.state = {
       selectedCategories: props.textOptions,

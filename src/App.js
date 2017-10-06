@@ -9,17 +9,21 @@ class App extends Component {
     super(props);
     this.state = {
       currentView: "StartView",
-      selectedTextOptions: [],
+      selectedTextOptions: ['letters'],
       textOptions: ["letters", "numbers", "symbols"],
+      spawnRate: 20,
       score: 0,
       highScore: 0
     };
   }
 
-  handleGameStart = textOptions => {
+  handleGameStart = (textOptions, spawnRate) => {
+    const rate = spawnRate;
+
     this.setState(prevState => {
       prevState.selectedTextOptions = textOptions;
       prevState.currentView = "GameView";
+      prevState.spawnRate = rate;
       return prevState;
     });
   }
@@ -47,6 +51,8 @@ class App extends Component {
       return (
         <StartView
           textOptions={this.state.textOptions}
+          selectedTextOptions={this.state.selectedTextOptions}
+          spawnRate={this.state.spawnRate}
           onGameStart={this.handleGameStart}
         />
       );
@@ -54,6 +60,7 @@ class App extends Component {
       return (
         <GameView
           textOptions={this.state.selectedTextOptions}
+          spawnRate={this.state.spawnRate}
           onGameOver={this.handleGameOver}
         />
       );
@@ -62,13 +69,18 @@ class App extends Component {
         <GameOverView
           score={this.state.score}
           highScore={this.state.score}
+          selectedTextOptions={this.state.selectedTextOptions}
+          spawnRate={this.state.spawnRate}
           onGameRestart={this.handleGameRestart}
+
         />
       );
     } else {
       return (
         <StartView
           textOptions={this.state.textOptions}
+          selectedTextOptions={this.state.selectedTextOptions}
+          spawnRate={this.state.spawnRate}
           onGameStart={this.handleGameStart}
         />
       );
