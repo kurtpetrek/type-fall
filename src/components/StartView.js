@@ -24,6 +24,7 @@ const OptionsList = styled.div`
     & {
       border-top: 2px solid #888;
       width: 100%;
+      margin: 0;
     }
   }
 `;
