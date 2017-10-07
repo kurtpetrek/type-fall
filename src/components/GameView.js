@@ -182,7 +182,7 @@ export default class GameView extends Component {
           type="text"
           autoFocus
           onChange={this.handleUserKeyInput}
-          style={{opacity: 0}}
+          style={{opacity: 0, fontSize: '20px'}}
         />
         {targets}
         <HealthBar width={this.state.health}/>
