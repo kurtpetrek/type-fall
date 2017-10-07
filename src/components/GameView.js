@@ -17,7 +17,7 @@ export default class GameView extends Component {
     this.gameTime = 0;
     this.intSpeed = 50;
     this.spawnRate = this.intSpeed * props.spawnRate;
-    this.onGameOver = props.onGameOver;
+    this.handleGameOver = props.onGameOver;
     this.hardcore = props.hardcore;
     this.state = {
       selectedCategories: props.textOptions,
@@ -25,7 +25,8 @@ export default class GameView extends Component {
       optionsPlaying: [],
       speed: .9,
       score: 0,
-      health: 100
+      health: 100,
+      animatingOut: false
     };
   }
 
@@ -86,10 +87,20 @@ export default class GameView extends Component {
     });
   };
 
+  onGameOver = () => {
+    clearInterval(this.interval);
+    this.setState(prevState=>{
+      prevState.animatingOut = true;
+      return prevState;
+    });
+    setTimeout(()=>{
+      this.handleGameOver(this.state.score);
+    }, 500);
+  }
+
   gameInterval = () => {
     if (this.state.health <= 0) {
-      clearInterval(this.interval);
-      this.onGameOver(this.state.score);
+      this.onGameOver();
     } else {
       if (this.gameTime % this.spawnRate === 0) {
         this.addNewItem();
@@ -152,14 +163,26 @@ export default class GameView extends Component {
       );
     });
 
+    let containerStyles = {
+      padding: '0 1rem',
+      height: '100vh',
+      overflow: 'hidden',
+      position: 'relative',
+      animation: 'slide-in forwards .5s',
+      background: 'white',
+      transition: '.5s'
+    };
+
+    containerStyles.top = this.state.animatingOut ? '-150vh' : '0';
+
     return (
-      <div style={{padding: '0 1rem', height: '100vh', overflow: 'hidden', position: 'relative'}}>
+      <div style={containerStyles}>
         <h1>Score: {this.state.score}</h1>
         <input
           type="text"
           autoFocus
           onChange={this.handleUserKeyInput}
-          style={{opacity: 0}}
+          style={{opacity: 0, height: 0, width: 0, position: 'relative', zIndex: '-1'}}
         />
         {targets}
         <HealthBar width={this.state.health}/>

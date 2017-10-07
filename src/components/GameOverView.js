@@ -43,7 +43,7 @@ export default class GameOverView extends React.Component {
 
     setTimeout(()=>{
       this.props.onGameRestart();
-    }, 600)
+    }, 500)
 
   }
 
