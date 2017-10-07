@@ -169,11 +169,11 @@ export default class GameView extends Component {
       overflow: 'hidden',
       position: 'relative',
       animation: 'slide-in forwards .5s',
-      background: 'white',
       transition: '.5s'
     };
 
-    containerStyles.top = this.state.animatingOut ? '-150vh' : '0';
+    containerStyles.top = this.state.animatingOut ? '150vh' : '0';
+    containerStyles.background = this.state.animatingOut ? '#F46652' : 'white';
 
     return (
       <div style={containerStyles}>
