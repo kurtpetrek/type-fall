@@ -26,10 +26,6 @@ const GameOverContainer = styled.div`
   }
 `;
 
-const ScaleContainer = styled.div`
-  animation: scale-in 1s forwards;
-`;
-
 export default function GameOverView(props) {
   let options = props.selectedTextOptions.map((el, i, arr) => {
     let tail = ', ';
@@ -68,8 +64,7 @@ export default function GameOverView(props) {
 
   return (
     <ViewContainer>
-      <ScaleContainer>
-        <InnerContainer>
+        <InnerContainer style={{animation: 'scale-in 1s forwards'}}>
           <AnimatedHeader>Type Fall</AnimatedHeader>
           <GameOverContainer>
             <h2>Game Over!</h2>
@@ -86,7 +81,6 @@ export default function GameOverView(props) {
             </div>
           </GameOverContainer>
         </InnerContainer>
-      </ScaleContainer>
     </ViewContainer>
   );
 }
