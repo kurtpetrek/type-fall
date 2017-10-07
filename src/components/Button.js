@@ -10,12 +10,27 @@ const StyledButton = styled.button`
   border: 2px solid #444;
   cursor: pointer;
   transition: 0.25s;
-  ${props => props.italic && "font-style: italic;"} &:hover {
+  ${props => props.italic && "font-style: italic;"}
+
+  box-shadow: -1px 1px 0px #333,
+  -2px 2px 0px #333,
+  -3px 3px 0px #333,
+  -4px 4px 0px #333;
+
+  &:hover {
     transform: scale(1.05);
+    box-shadow: -1px 1px 0px #777,
+    -2px 2px 0px #777,
+    -3px 3px 0px #777,
+    -4px 4px 0px #777,
+    -5px 5px 0px #777,
+    -6px 6px 0px #777;
   }
 
   &:active {
     transform: scale(0.95);
+    box-shadow: -1px 1px 0px #222,
+    -2px 2px 0px #222;
   }
 `;
 

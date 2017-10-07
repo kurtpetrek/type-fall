@@ -7,13 +7,27 @@ import InnerContainer from './InnerContainer';
 import AnimatedHeader from './AnimatedHeader';
 
 const GameOverContainer = styled.div`
+  @keyframes scale-in {
+      0% {
+        transform: scale(0);
+      }
+      100% {
+        transform: scale(1);
+      }
+  }
+
   h2 {
     text-align: center;
     font-size: 2.5rem;
+    animation: scale-in 2s forwards;
   }
   h3 {
     font-size: 1.5rem;
   }
+`;
+
+const ScaleContainer = styled.div`
+  animation: scale-in 1s forwards;
 `;
 
 export default function GameOverView(props) {
@@ -54,23 +68,25 @@ export default function GameOverView(props) {
 
   return (
     <ViewContainer>
-      <InnerContainer>
-        <AnimatedHeader>Type Fall</AnimatedHeader>
-        <GameOverContainer>
-          <h2>Game Over!</h2>
-          <h2>{highScoretext}</h2>
-          <h3>Score: {props.score}</h3>
-          <h3>Highscore: {props.highScore}</h3>
-          <h3>{hardcoreText}</h3>
-          <h3>Characters: {options}</h3>
-          <h3>Speed: {spawnSpeedText}</h3>
-          <div style={{textAlign: 'right'}}>
-            <Button handleClick={props.onGameRestart}>
-                New Game
-            </Button>
-          </div>
-        </GameOverContainer>
-      </InnerContainer>
+      <ScaleContainer>
+        <InnerContainer>
+          <AnimatedHeader>Type Fall</AnimatedHeader>
+          <GameOverContainer>
+            <h2>Game Over!</h2>
+            <h2>{highScoretext}</h2>
+            <h3>Score: {props.score}</h3>
+            <h3>Highscore: {props.highScore}</h3>
+            <h3>{hardcoreText}</h3>
+            <h3>Characters: {options}</h3>
+            <h3>Speed: {spawnSpeedText}</h3>
+            <div style={{textAlign: 'right'}}>
+              <Button handleClick={props.onGameRestart}>
+                  New Game
+              </Button>
+            </div>
+          </GameOverContainer>
+        </InnerContainer>
+      </ScaleContainer>
     </ViewContainer>
   );
 }

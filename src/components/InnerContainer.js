@@ -8,7 +8,6 @@ const InnerContainer = styled.div`
   position: relative;
   background: white;
   margin: 1rem;
-  
 `;
 
 export default InnerContainer;
