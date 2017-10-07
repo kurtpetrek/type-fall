@@ -176,7 +176,7 @@ export default class GameView extends Component {
     containerStyles.background = this.state.animatingOut ? '#F46652' : 'white';
 
     return (
-      <div style={containerStyles}>
+      <div style={containerStyles} onClick={()=>{document.querySelector('input').focus()}}>
         <h1>Score: {this.state.score}</h1>
         <input
           type="text"
