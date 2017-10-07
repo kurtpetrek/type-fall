@@ -36,7 +36,8 @@ export default class StartView extends Component {
       textOptions: props.textOptions,
       selectedTextOptions: props.selectedTextOptions,
       spawnRate: props.spawnRate,
-      hardcore: props.hardcore
+      hardcore: props.hardcore,
+      animatingOut: false
     };
     this.handleGameStart = props.onGameStart;
   }
@@ -57,7 +58,6 @@ export default class StartView extends Component {
   };
 
   handleSpeedUpdate = (value) => {
-    // const rate = e.target.value
     const rate = value;
     this.setState(prevState => {
       prevState.spawnRate = rate;
@@ -73,14 +73,21 @@ export default class StartView extends Component {
   }
 
   onStartGame = () => {
-    const {
-      selectedTextOptions,
-      spawnRate,
-      hardcore
-    } = this.state;
-    if (this.state.selectedTextOptions.length >= 1) {
-      this.handleGameStart(selectedTextOptions, spawnRate, hardcore);
-    }
+    this.setState(prevState => {
+      prevState.animatingOut = true;
+      return prevState;
+    });
+
+    setTimeout(()=>{
+      const {
+        selectedTextOptions,
+        spawnRate,
+        hardcore
+      } = this.state;
+      if (this.state.selectedTextOptions.length >= 1) {
+        this.handleGameStart(selectedTextOptions, spawnRate, hardcore);
+      }
+    },500);
   };
 
   render() {
@@ -132,9 +139,11 @@ export default class StartView extends Component {
 
     const disabled = this.state.selectedTextOptions.length >= 1 ? false : true;
 
+    const animatingOut = this.state.animatingOut ? {opacity: '1', top: '-150vh'} : {};
+
     return (
       <ViewContainer>
-        <InnerContainer>
+        <InnerContainer style={animatingOut}>
           <AnimatedHeader>Type Fall</AnimatedHeader>
           <p>Select the types of characters you would like to practice, the rate and whether you are penalized for mistakes.</p>
           <OptionsContainer>

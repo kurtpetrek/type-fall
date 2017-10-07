@@ -62,9 +62,11 @@ export default function GameOverView(props) {
 
   const hardcoreText = props.hardcore ? 'Hardcore' : '';
 
+  const containerStyle = false ? {transform: 'translateY(-100vh)'} : {animation: 'scale-in 1s forwards'};
+
   return (
     <ViewContainer>
-        <InnerContainer style={{animation: 'scale-in 1s forwards'}}>
+        <InnerContainer style={containerStyle}>
           <AnimatedHeader>Type Fall</AnimatedHeader>
           <GameOverContainer>
             <h2>Game Over!</h2>
