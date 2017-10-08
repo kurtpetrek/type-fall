@@ -7,9 +7,10 @@ const StyledButton = styled.button`
   background: ${props => props.background || "transparent"};
   border-radius: 3px;
   display: inline-block;
-  border: 2px solid #444;
+  border: 2px solid #000;
   cursor: pointer;
   transition: 0.25s;
+  will-change: transform;
   ${props => props.italic && "font-style: italic;"}
 
   box-shadow: -1px 1px 0px #333,
@@ -19,12 +20,12 @@ const StyledButton = styled.button`
 
   &:hover {
     transform: scale(1.05);
-    box-shadow: -1px 1px 0px #777,
-    -2px 2px 0px #777,
-    -3px 3px 0px #777,
-    -4px 4px 0px #777,
-    -5px 5px 0px #777,
-    -6px 6px 0px #777;
+    box-shadow: -1px 1px 0px #333,
+    -2px 2px 0px #333,
+    -3px 3px 0px #333,
+    -4px 4px 0px #333,
+    -5px 5px 0px #333,
+    -6px 6px 0px #333;
   }
 
   &:active {
