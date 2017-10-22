@@ -60,7 +60,14 @@ export default function RadioCheckBox(props) {
         checked={props.checked}
         onChange={props.handleInput}
       />
-      <span style={spanStyles}>{props.children}</span>
+      <span
+        tabindex="0"
+        role="button"
+        onKeyPress={props.handleInput}
+        style={spanStyles}
+      >
+        {props.children}
+      </span>
     </BlockLabel>
   );
 }
