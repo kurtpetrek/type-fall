@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import data from "./../data/data.js";
 
-import HealthBar from './HealthBar';
+import HealthBar from "./HealthBar";
 
 export default class GameView extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class GameView extends Component {
       selectedCategories: props.textOptions,
       options: options,
       optionsPlaying: [],
-      speed: .9,
+      speed: 0.9,
       score: 0,
       health: 100,
       animatingOut: false
@@ -89,14 +89,14 @@ export default class GameView extends Component {
 
   onGameOver = () => {
     clearInterval(this.interval);
-    this.setState(prevState=>{
+    this.setState(prevState => {
       prevState.animatingOut = true;
       return prevState;
     });
-    setTimeout(()=>{
+    setTimeout(() => {
       this.handleGameOver(this.state.score);
     }, 500);
-  }
+  };
 
   gameInterval = () => {
     if (this.state.health <= 0) {
@@ -105,36 +105,38 @@ export default class GameView extends Component {
       if (this.gameTime % this.spawnRate === 0) {
         this.addNewItem();
       }
-      if (document.querySelector('input')) {
-        document.querySelector('input').focus();
+      if (document.querySelector("input") && !this.state.animatingOut) {
+        document.querySelector("input").focus();
       }
       this.updatePositions();
       this.gameTime += this.intSpeed;
     }
   };
 
-  handleUserKeyInput = (e) => {
-    let val = e.target.value.toLowerCase();
-    let found = false;
-    this.state.optionsPlaying.forEach((el, index, arr) => {
-      if (val === el.character && el.active) {
-        found = true;
-        this.setState((prevState) => {
-          prevState.optionsPlaying[index].active = false;
-          prevState.optionsPlaying[index].deathTimer = 0;
-          prevState.score++;
+  handleUserKeyInput = e => {
+    if (!this.state.animatingOut) {
+      let val = e.target.value.toLowerCase();
+      let found = false;
+      this.state.optionsPlaying.forEach((el, index, arr) => {
+        if (val === el.character && el.active) {
+          found = true;
+          this.setState(prevState => {
+            prevState.optionsPlaying[index].active = false;
+            prevState.optionsPlaying[index].deathTimer = 0;
+            prevState.score++;
+            return prevState;
+          });
+        }
+      });
+      if (!found && this.hardcore) {
+        this.setState(prevState => {
+          prevState.health -= 10;
           return prevState;
         });
       }
-    });
-    if (!found && this.hardcore) {
-      this.setState(prevState => {
-        prevState.health -= 10;
-        return prevState;
-      });
+      e.target.value = "";
     }
-    e.target.value = '';
-  }
+  };
 
   render() {
     let targets = this.state.optionsPlaying.map(val => {
@@ -142,9 +144,9 @@ export default class GameView extends Component {
         position: "absolute",
         left: `${Math.round(val.xPosition)}vw`,
         top: 0,
-        fontSize: '2rem',
-        border: '2px solid black',
-        padding: '.5rem',
+        fontSize: "2rem",
+        border: "2px solid black",
+        padding: ".5rem",
         transform: `translate(-50%,${val.yPosition}vh)`,
         transition: `${this.intSpeed}ms`
       };
@@ -154,7 +156,7 @@ export default class GameView extends Component {
         style.transition = "500ms";
       }
       if (val.hitHealth) {
-        style.color = '#F30A13';
+        style.color = "#F30A13";
       }
       return (
         <h3 style={style} key={val.character}>
@@ -164,28 +166,34 @@ export default class GameView extends Component {
     });
 
     let containerStyles = {
-      padding: '0 1rem',
-      height: '100vh',
-      overflow: 'hidden',
-      position: 'relative',
-      animation: 'slide-in forwards .5s',
-      transition: '.5s'
+      padding: "0 1rem",
+      height: "100vh",
+      overflow: "hidden",
+      position: "relative",
+      animation: "slide-in forwards .5s",
+      transition: ".5s"
     };
 
-    containerStyles.top = this.state.animatingOut ? '150vh' : '0';
-    containerStyles.background = this.state.animatingOut ? '#F46652' : 'white';
+    containerStyles.top = this.state.animatingOut ? "150vh" : "0";
+    containerStyles.background = this.state.animatingOut ? "#F46652" : "white";
 
     return (
-      <div style={containerStyles} onClick={()=>{document.querySelector('input').focus()}}>
+      <div
+        style={containerStyles}
+        onClick={() => {
+          document.querySelector("input").focus();
+        }}
+      >
         <h1>Score: {this.state.score}</h1>
         <input
           type="text"
           autoFocus
           onChange={this.handleUserKeyInput}
-          style={{opacity: 0, fontSize: '20px'}}
+          style={{ opacity: 0, fontSize: "20px" }}
         />
         {targets}
-        <HealthBar width={this.state.health}/>
-      </div>);
+        <HealthBar width={this.state.health} />
+      </div>
+    );
   }
 }
