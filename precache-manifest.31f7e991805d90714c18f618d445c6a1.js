@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/type-fall/static/css/main.def61112.chunk.css"
   },
   {
-    "revision": "acd3ef36733a5cd13c69385e11cf2b92",
+    "revision": "325b0f7aa19e269fe8da2d2dd2c87f92",
     "url": "/type-fall/index.html"
   }
 ];
