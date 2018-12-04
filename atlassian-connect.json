@@ -15,7 +15,7 @@
      "generalPages": [
          {
              "url": "/index.html",
-             "key": "Type Fall",
+             "key": "type-fall",
              "location": "system.top.navigation.bar",
              "name": {
                  "value": "Greeting"
