@@ -1,6 +1,13 @@
 {
-  "main.css": "static/css/main.a45f9f65.css",
-  "main.css.map": "static/css/main.a45f9f65.css.map",
-  "main.js": "static/js/main.05af0bfd.js",
-  "main.js.map": "static/js/main.05af0bfd.js.map"
+  "main.css": "/type-fall/static/css/main.def61112.chunk.css",
+  "main.js": "/type-fall/static/js/main.f64b5210.chunk.js",
+  "main.js.map": "/type-fall/static/js/main.f64b5210.chunk.js.map",
+  "static/js/1.e4cdcac1.chunk.js": "/type-fall/static/js/1.e4cdcac1.chunk.js",
+  "static/js/1.e4cdcac1.chunk.js.map": "/type-fall/static/js/1.e4cdcac1.chunk.js.map",
+  "runtime~main.js": "/type-fall/static/js/runtime~main.dad2a457.js",
+  "runtime~main.js.map": "/type-fall/static/js/runtime~main.dad2a457.js.map",
+  "static/css/main.def61112.chunk.css.map": "/type-fall/static/css/main.def61112.chunk.css.map",
+  "index.html": "/type-fall/index.html",
+  "precache-manifest.85abc3a57e8d9fe2c239a5a8229a97e2.js": "/type-fall/precache-manifest.85abc3a57e8d9fe2c239a5a8229a97e2.js",
+  "service-worker.js": "/type-fall/service-worker.js"
 }
