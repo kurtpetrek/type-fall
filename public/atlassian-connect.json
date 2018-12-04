@@ -1,0 +1,26 @@
+{
+ "name": "Type Fall",
+ "description": "Atlassian Connect app",
+ "key": "com.example.myapp",
+ "baseUrl": "https://kurtpetrek.github.io/type-fall",
+ "vendor": {
+     "name": "Example, Inc.",
+     "url": "http://example.com"
+ },
+ "authentication": {
+     "type": "none"
+ },
+ "apiVersion": 1,
+ "modules": {
+     "generalPages": [
+         {
+             "url": "/index.html",
+             "key": "Type Fall",
+             "location": "system.top.navigation.bar",
+             "name": {
+                 "value": "Greeting"
+             }
+         }
+     ]
+ }
+}
