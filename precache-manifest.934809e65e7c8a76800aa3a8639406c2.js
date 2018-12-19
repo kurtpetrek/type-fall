@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/type-fall/static/js/runtime~main.dad2a457.js"
   },
   {
-    "revision": "f64b52104d99d529e3c2",
-    "url": "/type-fall/static/js/main.f64b5210.chunk.js"
+    "revision": "ff0305ad1927eaf41151",
+    "url": "/type-fall/static/js/main.ff0305ad.chunk.js"
   },
   {
     "revision": "e4cdcac102debc35b31e",
     "url": "/type-fall/static/js/1.e4cdcac1.chunk.js"
   },
   {
-    "revision": "f64b52104d99d529e3c2",
+    "revision": "ff0305ad1927eaf41151",
     "url": "/type-fall/static/css/main.def61112.chunk.css"
   },
   {
-    "revision": "d398cee9d2d95be4b5f4d735ccf4efd7",
+    "revision": "1fccea539e235a00297ade07b45d3e73",
     "url": "/type-fall/index.html"
   }
 ];
